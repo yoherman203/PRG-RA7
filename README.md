@@ -23,4 +23,7 @@ Repo\
     venv\
     .gitignore
 ```
+
 Un cop així, act
+
+
