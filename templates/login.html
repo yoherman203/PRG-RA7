@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IC Games - Acces al sistema</title>
+    <title>IC Games - Accés al sistema</title>
     
-    <link rel="stylesheet" href="../static/css/login_style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_style.css') }}">
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
@@ -19,9 +19,15 @@
             
             <div class="contingut-targeta">
                 <h1 class="titol-futurista">IC GAMES</h1>
-                <p class="subtitol">Acces al sistema central</p>
+                <p class="subtitol">Accés al sistema central</p>
 
-                      <div class="alerta alerta-{{ category }}"></div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="alerta alerta-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
 
                 <form action="/" method="POST" class="formulari-login">
                     
@@ -47,7 +53,7 @@
                 </form>
                 
                 <div class="peu-pagina">
-                    <p>¿Nuevo usuario? <a href="registre">Registrar nueva entidad</a></p>
+                    <p>Nou usuari? <a href="{{ url_for('registre') }}">Registra't aquí</a></p>
                 </div>
             </div>
         </div>

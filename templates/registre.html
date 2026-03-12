@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IC Games - Registre al sistema</title>
     
-    <link rel="stylesheet" href="../static/css/login_style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_style.css') }}">
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
@@ -21,9 +21,15 @@
                 <h1 class="titol-futurista">IC GAMES</h1>
                 <p class="subtitol">Registre al sistema central</p>
 
-                      <div class="alerta alerta-{{ category }}"></div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="alerta alerta-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
 
-                <form action="/" method="POST" class="formulari-login">
+                <form action="/registre" method="POST" class="formulari-login">
                     
                     <div class="grup-input">
                         <input type="text" id="username" name="username" required placeholder=" ">
@@ -47,7 +53,7 @@
                 </form>
                 
                 <div class="peu-pagina">
-                    <p>Ja tens compte? <a href="/">Identifica't aqui</a></p>
+                    <p>Ja tens compte? <a href="{{ url_for('login') }}">Identifica't aqui</a></p>
                 </div>
             </div>
         </div>
