@@ -52,10 +52,12 @@ def joc1():
 
 @app.route('/joc2')
 def joc2():
-    if 'user' not in session:
+    # Verificamos si hay una sesión activa con el nuevo nombre
+    if 'usuari_actiu' in session:
+        return render_template("joc2.html", username=session['usuari_actiu'])
+    else:
+        flash("Protocol de seguretat: Identifica't per jugar.", "error")
         return redirect(url_for('login'))
-    return render_template("joc2.html", username=session['user'])
-
 @app.route('/joc3')
 def joc3():
     return render_template("joc3.html")
@@ -64,15 +66,13 @@ def joc3():
 @app.route('/finalitzar_joc', methods=['POST'])
 def finalitzar_joc():
     dades = request.get_json()
-    username = dades.get('username', 'Convidat')
-    joc_nom = dades.get('joc', 'Joc 2 (Chimpa)')
-    puntuacio = dades.get('puntuacio', 0)
+    username = dades.get('username')
+    puntuacio = dades.get('puntuacio')
 
-    nou_resultat = Resultat(username, joc_nom, puntuacio)
-    gestor.guardar_resultat(nou_resultat)
-
-    print(f"✅ Resultat guardat: {username} - {puntuacio} punts")
-    return jsonify({"status": "success", "message": "Resultat guardat correctament"})
+    # Aquí podrías usar tu GestorDades anterior para guardar los puntos en un CSV de resultados
+    # o crear un nuevo método en usuaris.py para guardar ránkings en JSON.
+    print(f"🎮 Partida finalitzada per {username}: {puntuacio} punts.")
+    return jsonify({"status": "success"})
 
 # 5. Execució del servidor
 if __name__ == '__main__':

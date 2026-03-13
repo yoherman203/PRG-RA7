@@ -81,13 +81,11 @@
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
-					// Usamos la variable que pasamos desde Flask
-					username: "{{ username }}",
+					username: "{{ username }}", // Este valor viene de render_template
 					joc: "Chimpa Test",
 					puntuacio: score
 				})
 			}).then(() => {
-				alert("Partida guardada para el usuario: {{ username }}");
 				window.location.href = "/home";
 			});
 		}
