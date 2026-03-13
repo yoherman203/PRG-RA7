@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,10 @@
 
     <link rel="stylesheet" href="../static/css/home.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
 
     <div class="home-background"></div>
@@ -20,28 +23,35 @@
         </header>
 
         <section class="home-grid">
-            <article class="home-card">
-                <div class="home-card__content">
-                    <h2 class="home-card__title">Joc 1</h2>
-                    <p class="home-card__text">Acceso rapido al primer juego del sistema.</p>
-                </div>
-            </article>
+            <a href="{{ url_for('joc1') }}" class="home-card-link">
+                <article class="home-card">
+                    <div class="home-card__content">
+                        <h2 class="home-card__title">Joc 1</h2>
+                        <p class="home-card__text">Escriure el resultat correcte.</p>
+                    </div>
+                </article>
+            </a>
 
-            <article class="home-card">
-                <div class="home-card__content">
-                    <h2 class="home-card__title">Joc 2</h2>
-                    <p class="home-card__text">Acceso rapido al segundo juego del sistema.</p>
-                </div>
-            </article>
+            <a href="{{ url_for('joc2') }}" class="home-card-link">
+                <article class="home-card">
+                    <div class="home-card__content">
+                        <h2 class="home-card__title">Joc 2</h2>
+                        <p class="home-card__text">Atrapa els objectius amb el ratolí.</p>
+                    </div>
+                </article>
+            </a>
 
-            <article class="home-card">
-                <div class="home-card__content">
-                    <h2 class="home-card__title">Joc 3</h2>
-                    <p class="home-card__text">Acceso rapido al tercer juego del sistema.</p>
-                </div>
-            </article>
+            <a href="{{ url_for('joc3') }}" class="home-card-link">
+                <article class="home-card">
+                    <div class="home-card__content">
+                        <h2 class="home-card__title">Joc 3</h2>
+                        <p class="home-card__text">Fes clic en l'ordre concret.</p>
+                    </div>
+                </article>
+            </a>
         </section>
     </main>
 
 </body>
+
 </html>
