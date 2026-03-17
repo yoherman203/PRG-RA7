@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>IC Games - Selecció en orde</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/joc3.css') }}">
+</head>
+<body>
+    <script>
+        window.joc3Username = "{{ username }}";
+    </script>
+
+    <h1>Selecció en orde</h1>
+    <p>Clica els números en ordre: 1, 2, 3...</p>
+    <div id="status">Nivell: <span id="level">1</span> | Punts: <span id="score">0</span></div>
+
+    <div id="game-container"></div>
+
+    <script src="{{ url_for('static', filename='js/joc3.js') }}"></script>
+</body>
+</html>

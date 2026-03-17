@@ -62,16 +62,17 @@ def joc1():
 
 @app.route('/joc2')
 def joc2():
-    if 'usuari_actiu' in session:
-        return render_template("joc2.html", username=session['usuari_actiu'])
-    else:
-        flash("Protocol de seguretat: Identifica't per jugar.", "error")
-        return redirect(url_for('login'))
+    return render_template("joc2.html")
+
 
 
 @app.route('/joc3')
 def joc3():
-    return render_template("joc3.html")
+    if 'usuari_actiu' in session:
+        return render_template("joc3.html", username=session['usuari_actiu'])
+    else:
+        flash("Protocol de seguretat: Identifica't per jugar.", "error")
+        return redirect(url_for('login'))
 
 
 @app.route('/finalitzar_joc', methods=['POST'])

@@ -99,6 +99,9 @@ body {
 }
 
 .home-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     position: relative;
     min-height: 260px;
     background: rgba(255, 255, 255, 0.05);
