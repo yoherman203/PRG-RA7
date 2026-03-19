@@ -1,4 +1,4 @@
-const START_TIME_MS = 20000;
+const START_TIME_MS = 45000;
 const BONUS_TIME_MS = 2500;
 const PENALTY_TIME_MS = 2000;
 const LOW_TIME_MS = 5000;

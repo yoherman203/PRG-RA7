@@ -1,40 +1,19 @@
-sol
-mar
-cel
-casa
-taula
-cadira
-gat
-gos
-finestra
-teclat
-pantalla
-xarxa
-energia
-plasma
-modul
-galaxia
-vector
-circuit
-protocol
-sintaxi
-variable
-funcio
-servidor
-repositori
-compilador
-algorisme
-interficie
-resistencia
-laboratori
-electricitat
-criptografia
-transmissio
-arquitectura
-microxip
-fotovoltaica
-hipervincle
-electromagnetisme
-interoperabilitat
-desenvolupament
-infrastructura
+cr7 > messi
+print("prg")
+ping google.com
+sudo rm -rf
+systemctl status
+enable
+start
+sifilis
+docker-compose up -d
+etchepareborda
+ai
+delete
+nyap
+bleda
+nyanyo
+capgros
+fanal
+peus de plom
+abraça fanals
