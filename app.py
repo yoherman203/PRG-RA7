@@ -47,6 +47,16 @@ def home():
         flash("Protocolo de seguridad: Debes iniciar sesión primero.", "error")
         return redirect(url_for('login'))
 
+@app.route('/joc1')
+def joc1():
+    if 'usuari_actiu' in session:
+        nom_usuari = session['usuari_actiu']
+        return render_template("joc1.html", usuari=nom_usuari)
+    else:
+        flash("Protocolo de seguridad: Debes iniciar sesiÃ³n primero.", "error")
+        return redirect(url_for('login'))
+
+
 @app.route('/logout', methods=['POST'])
 def logout():
     session.pop('usuari_actiu', None)
