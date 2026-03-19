@@ -7,6 +7,13 @@ app = Flask(__name__)
 gestor = GestorDades()
 app.secret_key = 'clau_secreta_ic_games_1r_daw'
 
+
+@app.context_processor
+def inject_usuari():
+    """Fica 'usuari' a totes les plantilles si hi ha sessió."""
+    return {'usuari': session.get('usuari_actiu')}
+
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -71,7 +78,6 @@ def joc1():
 @app.route('/joc2')
 def joc2():
     return render_template("joc2.html")
-
 
 
 @app.route('/joc3')
