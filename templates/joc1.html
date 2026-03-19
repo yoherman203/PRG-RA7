@@ -1,41 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}IC Games - Selecció en orde{% endblock %}
+{% block title %}IC Games - Joc 1{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/joc3.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/joc1.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
+    <script>
+        window.JOC1_WORDS_URL = "{{ url_for('static', filename='data/joc1-paraules.txt') }}";
+    </script>
 
-{% endblock %}
-<!DOCTYPE html>
-<html lang="ca">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IC Games - Joc 1</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/joc1.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-</head>
-<body data-words-url="{{ url_for('static', filename='data/joc1-paraules.txt') }}">
-    <aside class="joc1-topbar">
-        <div class="joc1-session">
-            <div class="joc1-user-info">
-                <span class="joc1-user-label">Usuari connectat</span>
-                <strong class="joc1-user-name">{{ usuari }}</strong>
-            </div>
-
-            <div class="joc1-session__actions">
-                <a href="{{ url_for('home') }}" class="joc1-action joc1-action--ghost">Inici</a>
-                <form action="{{ url_for('logout') }}" method="POST">
-                    <button type="submit" class="joc1-action">Tanca la sessio</button>
-                </form>
-            </div>
-        </div>
-    </aside>
-
-    <main class="joc1-page">
+    <div class="joc1-page">
         <header class="joc1-hero">
             <p class="joc1-hero__eyebrow">Joc 1</p>
             <h1 class="joc1-hero__title">Flux de Paraules</h1>
@@ -81,8 +58,7 @@
                 <a href="{{ url_for('home') }}" class="joc1-end-action">Tornar al menu</a>
             </div>
         </section>
-    </main>
+    </div>
 
     <script src="{{ url_for('static', filename='js/joc1.js') }}" defer></script>
-</body>
-</html>
+{% endblock %}
