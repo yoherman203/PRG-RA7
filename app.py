@@ -58,6 +58,8 @@ def home():
         return redirect(url_for('login'))
 
 
+
+
 @app.route('/logout', methods=['POST'])
 def logout():
     session.pop('usuari_actiu', None)
@@ -67,8 +69,11 @@ def logout():
 
 @app.route('/joc1')
 def joc1():
-    return render_template("joc1.html")
-
+    if 'usuari_actiu' in session:
+        return render_template("joc1.html", username=session['usuari_actiu'])
+    else:
+        flash("Protocol de seguretat: Identifica't per jugar.", "error")
+        return redirect(url_for('login'))
 
 @app.route('/joc2')
 def joc2():

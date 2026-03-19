@@ -116,6 +116,12 @@ body {
     transition: var(--transicio);
 }
 
+.home-card--link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
 .home-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.6),
@@ -144,6 +150,29 @@ body {
     font-size: 1rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.75);
+}
+
+.home-card__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    margin-top: 4px;
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 242, 254, 0.35);
+    color: var(--color-primari);
+    font-family: var(--font-futurista);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: var(--transicio);
+}
+
+.home-card--link:hover .home-card__cta {
+    background: var(--color-primari);
+    color: #030a1c;
 }
 
 @media (max-width: 900px) {
