@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from models.usuaris import Usuari
+from models.gestor_dades import GestorDades
+from models.entities import Resultat
 
 app = Flask(__name__)
+gestor = GestorDades()
 app.secret_key = 'clau_secreta_ic_games_1r_daw'
 
 @app.route('/', methods=['GET', 'POST'])
@@ -79,8 +82,11 @@ def joc3():
 def finalitzar_joc():
     dades = request.get_json()
     username = dades.get('username') or session.get('usuari_actiu')
-    puntuacio = dades.get('puntuacio')
-    print(f"🎮 Partida finalitzada per {username}: {puntuacio} punts.")
+    puntuacio = int(dades.get('puntuacio', 0))
+    joc_nom = dades.get('joc', 'Joc')
+    resultat = Resultat(username, joc_nom, puntuacio)
+    gestor.guardar_resultat(resultat)
+    print(f"Partida finalitzada per {username}: {puntuacio} punts. Guardat a resultats.csv")
     return jsonify({"status": "success"})
 
 
