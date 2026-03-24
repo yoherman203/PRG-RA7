@@ -70,7 +70,12 @@ def joc1():
 
 @app.route('/joc2')
 def joc2():
-    return render_template("joc2.html")
+    if 'usuari_actiu' in session:
+        return render_template("joc2.html", username=session['usuari_actiu'])
+    else:
+        flash("Protocol de seguretat: Identifica't per jugar.", "error")
+        return redirect(url_for('login'))
+    
 
 
 
