@@ -2,14 +2,34 @@
 <html lang="ca">
 
 <head>
-	<meta charset="UTF-8">
-	<title>IC Games</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IC Games{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/topbar.css') }}">
+    {% block head %}{% endblock %}
 </head>
 
-<body>
-	{% block content %}{% endblock %}
+<body class="has-app-topbar">
+    {% if usuari %}
+    <aside class="app-topbar">
+        <a href="{{ url_for('home') }}" class="app-topbar__back">Torna a l'inici</a>
+        <div class="app-topbar__session">
+            <div class="app-topbar__user-info">
+                <span class="app-topbar__user-label">Usuari connectat</span>
+                <strong class="app-topbar__user-name">{{ usuari }}</strong>
+            </div>
+            <form action="{{ url_for('logout') }}" method="POST" class="app-topbar__logout-form">
+                <button type="submit" class="app-topbar__logout">Tanca la sessió</button>
+            </form>
+        </div>
+    </aside>
+    {% endif %}
+
+    <main class="page-content">
+        {% block content %}{% endblock %}
+    </main>
 </body>
 
 </html>

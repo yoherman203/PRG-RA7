@@ -144,7 +144,9 @@ function handleSubmit(event) {
 }
 
 async function loadWords() {
-    const url = document.body.dataset.wordsUrl;
+    const url = typeof window.JOC1_WORDS_URL !== 'undefined'
+        ? window.JOC1_WORDS_URL
+        : document.body.dataset.wordsUrl;
 
     try {
         const response = await fetch(url, { cache: "no-store" });
