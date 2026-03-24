@@ -7,13 +7,6 @@ app = Flask(__name__)
 gestor = GestorDades()
 app.secret_key = 'clau_secreta_ic_games_1r_daw'
 
-
-@app.context_processor
-def inject_usuari():
-    """Fica 'usuari' a totes les plantilles si hi ha sessió."""
-    return {'usuari': session.get('usuari_actiu')}
-
-
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -26,7 +19,7 @@ def login():
             session['usuari_actiu'] = nom
             return redirect(url_for('home'))
         else:
-            flash("Acceso denegado: Credenciales incorrectas.", "error")
+            flash("Accés denegat: Credencials incorrectes.", "error")
 
     return render_template("login.html")
 
@@ -40,10 +33,10 @@ def registre():
         nou_usuari = Usuari(nom, clau)
 
         if nou_usuari.guardar_en_json():
-            flash("Entidad registrada con éxito. Ya puedes iniciar protocolo.", "success")
+            flash("Registrat amb èxit, ja pots iniciar el protocol.", "success")
             return redirect(url_for('login'))
         else:
-            flash("Error: El identificador de usuario ya está en uso.", "error")
+            flash("Error: L'identificador d'usuari ja està en ús.", "error")
 
     return render_template("registre.html")
 
@@ -54,7 +47,7 @@ def home():
         nom_usuari = session['usuari_actiu']
         return render_template("home.html", usuari=nom_usuari)
     else:
-        flash("Protocolo de seguridad: Debes iniciar sesión primero.", "error")
+        flash("Protocol de seguretat: Has d'iniciar sessió primer.", "error")
         return redirect(url_for('login'))
 
 
@@ -63,7 +56,7 @@ def home():
 @app.route('/logout', methods=['POST'])
 def logout():
     session.pop('usuari_actiu', None)
-    flash("Sessio tancada correctament.", "success")
+    flash("Sessió tancada correctament.", "success")
     return redirect(url_for('login'))
 
 
@@ -78,6 +71,7 @@ def joc1():
 @app.route('/joc2')
 def joc2():
     return render_template("joc2.html")
+
 
 
 @app.route('/joc3')
