@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>IC Games - Neon Drift</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/joc2.css') }}">
+</head>
+<body>
+
+    <h1>IC GAMES - NEON DRIFT</h1>
+    
+    <div id="zona-joc">
+        <div id="linies-carretera"></div>
+        <div id="hud">PUNTS: <span id="puntuacio">0</span></div>
+        <div id="jugador" class="cotxe"></div>
+        <div id="contenidor-enemics"></div>
+
+        <div id="pantalla-inici">
+            <button class="boto-futurista" onclick="iniciarJoc()">INICIAR PROTOCOL</button>
+        </div>
+
+        <div id="pantalla-final">
+            <h2>IMPACTE!</h2>
+            <p>Puntuació final: <span id="puntuacio-final">0</span></p>
+            <button class="boto-futurista" onclick="reiniciarJoc()" id="btn-reiniciar">TORNAR A INTENTAR</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/joc2.js') }}"></script>
+</body>
+</html>

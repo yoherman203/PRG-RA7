@@ -1,0 +1,152 @@
+:root {
+    --color-neon: #00ffff;
+    --color-fons: #050510;
+    --color-carretera: #1a1a2e;
+    --color-jugador: #00ffff;
+    --color-enemic: #ff0055;
+    --amplada-joc: 400px;
+    --alcada-joc: 600px;
+    --amplada-cotxe: 40px;
+    --alcada-cotxe: 70px;
+}
+
+body {
+    background-color: var(--color-fons);
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+h1 {
+    color: var(--color-neon);
+    text-shadow: 0 0 10px var(--color-neon);
+    margin-bottom: 10px;
+}
+
+#zona-joc {
+    position: relative;
+    width: var(--amplada-joc);
+    height: var(--alcada-joc);
+    background-color: var(--color-carretera);
+    border: 2px solid var(--color-neon);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    overflow: hidden;
+    cursor: none;
+}
+
+#linies-carretera {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, 
+        rgba(255,255,255,0.5) 0%, 
+        rgba(255,255,255,0.5) 50%, 
+        transparent 50%, 
+        transparent 100%);
+    background-size: 10px 100px;
+    background-position: center;
+    animation: moureLinies linear infinite;
+    animation-play-state: paused;
+}
+
+@keyframes moureLinies {
+    from { background-position-y: 0px; }
+    to { background-position-y: 100px; }
+}
+
+.cotxe {
+    position: absolute;
+    width: var(--amplada-cotxe);
+    height: var(--alcada-cotxe);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#jugador {
+    background-color: var(--color-jugador);
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px var(--color-jugador);
+    border: 2px solid white;
+    z-index: 10;
+}
+
+#jugador::before, #jugador::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    width: 8px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 10px white;
+}
+#jugador::before { left: 5px; }
+#jugador::after { right: 5px; }
+
+.enemic {
+    background-color: var(--color-enemic);
+    box-shadow: 0 0 10px var(--color-enemic);
+    border: 2px solid #300;
+}
+
+#hud {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+    padding: 5px 10px;
+    border: 1px solid var(--color-neon);
+    color: var(--color-neon);
+    font-size: 1.2em;
+    z-index: 20;
+}
+
+#pantalla-final, #pantalla-inici {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+}
+
+#pantalla-final {
+    display: none;
+}
+
+#pantalla-final h2 {
+    color: var(--color-enemic);
+    font-size: 3em;
+    margin: 0;
+    text-shadow: 0 0 15px var(--color-enemic);
+}
+
+.boto-futurista {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 2px solid var(--color-neon);
+    color: var(--color-neon);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.boto-futurista:hover {
+    background: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 10px var(--color-neon);
+}
