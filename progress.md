@@ -1,4 +1,4 @@
-Original prompt: haz algo simple en joc1.html
+·Original prompt: haz algo simple en joc1.html
 
 - `joc1.html`, `joc1.css` y `joc1.js` estaban vacíos.
 - `app.py` todavía no expone una ruta para `joc1`.
