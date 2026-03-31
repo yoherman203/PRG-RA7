@@ -1,14 +1,15 @@
-{% extends "base.html" %}
-
-{% block title %}IC Games - Neon Drift{% endblock %}
-
-{% block head %}
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>IC Games - Neon Drift</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/joc2.css') }}">
-{% endblock %}
+</head>
+<body>
 
-{% block content %}
     <h1>IC GAMES - NEON DRIFT</h1>
-
+    
     <div id="zona-joc">
         <div id="linies-carretera"></div>
         <div id="hud">PUNTS: <span id="puntuacio">0</span></div>
@@ -27,4 +28,5 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/joc2.js') }}"></script>
-{% endblock %}
+</body>
+</html>
