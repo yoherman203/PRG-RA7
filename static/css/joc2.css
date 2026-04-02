@@ -134,8 +134,14 @@ h1 {
     text-shadow: 0 0 15px var(--color-enemic);
 }
 
-.boto-futurista {
+.botons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     margin-top: 20px;
+}
+
+.boto-futurista {
     padding: 10px 20px;
     background: transparent;
     border: 2px solid var(--color-neon);
@@ -149,4 +155,14 @@ h1 {
 .boto-futurista:hover {
     background: rgba(0, 255, 255, 0.2);
     box-shadow: 0 0 10px var(--color-neon);
+}
+
+.boto-secundari {
+    border-color: #ff0055;
+    color: #ff0055;
+}
+
+.boto-secundari:hover {
+    background: rgba(255, 0, 85, 0.2);
+    box-shadow: 0 0 10px #ff0055;
 }

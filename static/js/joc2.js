@@ -139,6 +139,24 @@ function finalitzarJoc() {
     
     textPuntuacioFinal.innerText = puntuacio;
     pantallaFinal.style.display = 'flex'; 
+
+    fetch('/finalitzar_joc', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            username: typeof usuariActual !== 'undefined' ? usuariActual : "", 
+            joc: "Neon Drift",
+            puntuacio: puntuacio
+        })
+    })
+    .then(response => {
+        if(response.ok) {
+            console.log("Dades enviades correctament al servidor per a ser guardades.");
+        }
+    })
+    .catch(error => {
+        console.error("No s'han pogut enviar les dades al servidor:", error);
+    });
 }
 
 function reiniciarJoc() {
