@@ -4,40 +4,56 @@
     --color-carretera: #1a1a2e;
     --color-jugador: #00ffff;
     --color-enemic: #ff0055;
-    --amplada-joc: 400px;
-    --alcada-joc: 600px;
     --amplada-cotxe: 40px;
     --alcada-cotxe: 70px;
 }
 
+/* Forzamos el fondo oscuro en toda la página para quitar la franja blanca */
 body {
-    background-color: var(--color-fons);
+    background-color: var(--color-fons) !important;
+    margin: 0;
+    padding: 0;
+}
+
+.joc2-container {
     color: white;
     font-family: 'Orbitron', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
+    min-height: 100vh;
+    width: 100%;
+    /* 100px arriba para no tapar la barra, 50px abajo para móviles */
+    padding: 100px 10px 50px; 
+    box-sizing: border-box;
 }
 
-h1 {
-    color: var(--color-neon);
-    text-shadow: 0 0 10px var(--color-neon);
-    margin-bottom: 10px;
+.joc2-title {
+    color: var(--color-neon) !important;
+    text-shadow: 0 0 10px var(--color-neon) !important;
+    margin: 0 auto 20px auto !important;
+    font-size: clamp(1.5rem, 6vw, 2rem) !important;
+    text-align: center !important;
+    border-bottom: none !important;
+    width: 100%;
+    display: block;
 }
 
 #zona-joc {
     position: relative;
-    width: var(--amplada-joc);
-    height: var(--alcada-joc);
+    width: 100%;
+    max-width: 400px;
+    flex: 1;
+    min-height: 400px;
+    max-height: 600px;
     background-color: var(--color-carretera);
     border: 2px solid var(--color-neon);
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
     overflow: hidden;
     cursor: none;
+    touch-action: none;
+    border-radius: 4px;
 }
 
 #linies-carretera {
@@ -88,6 +104,7 @@ h1 {
     border-radius: 50%;
     box-shadow: 0 0 10px white;
 }
+
 #jugador::before { left: 5px; }
 #jugador::after { right: 5px; }
 
@@ -105,7 +122,7 @@ h1 {
     padding: 5px 10px;
     border: 1px solid var(--color-neon);
     color: var(--color-neon);
-    font-size: 1.2em;
+    font-size: clamp(1em, 4vw, 1.2em);
     z-index: 20;
 }
 
@@ -121,6 +138,8 @@ h1 {
     align-items: center;
     justify-content: center;
     z-index: 30;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 #pantalla-final {
@@ -129,9 +148,10 @@ h1 {
 
 #pantalla-final h2 {
     color: var(--color-enemic);
-    font-size: 3em;
+    font-size: clamp(2em, 8vw, 3em);
     margin: 0;
     text-shadow: 0 0 15px var(--color-enemic);
+    text-align: center;
 }
 
 .botons-container {
@@ -139,6 +159,8 @@ h1 {
     flex-direction: column;
     gap: 15px;
     margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
 }
 
 .boto-futurista {
@@ -147,9 +169,11 @@ h1 {
     border: 2px solid var(--color-neon);
     color: var(--color-neon);
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.2em;
+    font-size: clamp(1em, 4vw, 1.2em);
     cursor: pointer;
     transition: 0.2s;
+    width: 100%;
+    text-align: center;
 }
 
 .boto-futurista:hover {
