@@ -7,6 +7,13 @@ app = Flask(__name__)
 gestor = GestorDades()
 app.secret_key = 'clau_secreta_ic_games_1r_daw'
 
+
+@app.context_processor
+def inject_usuari():
+    """Fa que el usuari estigui disponible a totes les plantilles."""
+    return {'usuari': session.get('usuari_actiu')}
+
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -75,7 +82,7 @@ def joc2():
     else:
         flash("Protocol de seguretat: Identifica't per jugar.", "error")
         return redirect(url_for('login'))
-    
+
 
 
 
