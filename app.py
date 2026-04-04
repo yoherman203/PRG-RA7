@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from models.usuaris import Usuari
 from models.gestor_dades import GestorDades
 from models.entities import Resultat
+import csv
+import os
 
 app = Flask(__name__)
 gestor = GestorDades()
@@ -58,8 +60,6 @@ def home():
         return redirect(url_for('login'))
 
 
-
-
 @app.route('/logout', methods=['POST'])
 def logout():
     session.pop('usuari_actiu', None)
@@ -84,8 +84,6 @@ def joc2():
         return redirect(url_for('login'))
 
 
-
-
 @app.route('/joc3')
 def joc3():
     if 'usuari_actiu' in session:
@@ -106,6 +104,26 @@ def finalitzar_joc():
     print(f"Partida finalitzada per {username}: {puntuacio} punts. Guardat a resultats.csv")
     return jsonify({"status": "success"})
 
+@app.route('/rankings')
+def rankings():
+    joc_seleccionat = request.args.get('joc', 'Selecció en orde')
+    dades_ranking = []
+    ruta_fitxer = 'dades/resultats.csv'
+    
+    try:
+        with open(ruta_fitxer, mode='r', encoding='utf-8') as f:
+            for row in csv.reader(f):
+                if len(row) >= 4 and row[0].lower() != 'usuari' and row[1] == joc_seleccionat:
+                    dades_ranking.append([int(row[2]), row[0], row[3]])
+    except FileNotFoundError:
+        print(f"Avís: No s'ha trobat el fitxer {ruta_fitxer}")
+    
+    dades_ranking.sort(reverse=True)
+    
+    return render_template('rankings.html', 
+                           usuari=session.get('usuari_actiu'),
+                           dades=dades_ranking,
+                           joc_seleccionat=joc_seleccionat)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -108,7 +108,6 @@ body {
     border-radius: 18px;
     padding: 32px;
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.5),
         0 0 10px rgba(79, 172, 254, 0.2);
@@ -175,6 +174,37 @@ body {
     color: #030a1c;
 }
 
+.home-page__bottom-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+    width: 100%;
+}
+
+.btn-ranking-bottom {
+    display: inline-block;
+    padding: 16px 48px;
+    background: rgba(0, 242, 254, 0.05);
+    border: 2px solid var(--color-primari);
+    border-radius: 999px;
+    color: var(--color-primari);
+    font-family: var(--font-futurista);
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: var(--transicio);
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.btn-ranking-bottom:hover {
+    background: var(--color-primari);
+    color: #030a1c;
+    box-shadow: 0 0 30px rgba(0, 242, 254, 0.6), 0 0 60px rgba(0, 242, 254, 0.2);
+    transform: translateY(-4px);
+}
+
 @media (max-width: 900px) {
     .home-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -184,6 +214,7 @@ body {
 @media (max-width: 640px) {
     body {
         padding: 20px;
+        padding-top: 120px;
     }
 
     .home-grid {
@@ -197,6 +228,12 @@ body {
     .home-card {
         min-height: 220px;
         padding: 24px;
+    }
+
+    .btn-ranking-bottom {
+        width: 100%;
+        text-align: center;
+        padding: 16px 24px;
     }
 }
 
@@ -216,7 +253,6 @@ body {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
 }
 
@@ -244,20 +280,24 @@ body {
 .home-page__logout {
     padding: 10px 14px;
     border-radius: 999px;
-    border: 1px solid rgba(0, 242, 254, 0.35);
     background: transparent;
-    color: var(--color-primari);
     font-family: var(--font-futurista);
     font-size: 0.8rem;
     letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
     transition: var(--transicio);
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    border: 1px solid rgba(255, 68, 68, 0.5);
+    color: #ff4444;
 }
 
 .home-page__logout:hover {
-    background: var(--color-primari);
-    color: #030a1c;
+    background: #ff4444;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.6);
 }
 
 @media (max-width: 640px) {

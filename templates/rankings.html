@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}IC Games - Rànquings{% endblock %}
+
+{% block head %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rankings.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="rankings-container">
+        <h1 class="rankings-title">RÀNQUINGS GLOBALS</h1>
+        
+        <form method="GET" action="{{ url_for('rankings') }}" class="rankings-controls">
+            <label for="game-select">SELECCIONA EL JOC:</label>
+            <select id="game-select" name="joc" class="futuristic-select" onchange="this.form.submit()">
+                <option value="Selecció en orde" {% if joc_seleccionat == 'Selecció en orde' %}selected{% endif %}>Selecció en orde</option>
+                <option value="Neon Drift" {% if joc_seleccionat == 'Neon Drift' %}selected{% endif %}>Neon Drift</option>
+            </select>
+        </form>
+
+        <div class="table-wrapper">
+            <table class="futuristic-table">
+                <thead>
+                    <tr>
+                        <th>POSICIÓ</th>
+                        <th>USUARI</th>
+                        <th>PUNTUACIÓ</th>
+                        <th>DATA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if dades %}
+                        {% for fila in dades %}
+                            <tr class="{% if loop.index == 1 %}rank-1{% elif loop.index == 2 %}rank-2{% elif loop.index == 3 %}rank-3{% endif %}">
+                                <td class="posicio">#{{ loop.index }}</td>
+                                <td class="usuari-nom">{{ fila[1] }}</td> <td class="punts">{{ fila[0] }}</td>      <td>{{ fila[2] }}</td>                    </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">No hi ha registres per a aquest joc encara.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

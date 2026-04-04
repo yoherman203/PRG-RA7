@@ -36,26 +36,32 @@
         <section class="home-grid">
             <a class="home-card home-card--link" href="{{ url_for('joc1') }}">
                 <div class="home-card__content">
-                    <h2 class="home-card__title">Joc 1</h2>
-                    <p class="home-card__text">Joc escriure rapid</p>
+                    <h2 class="home-card__title">Flux de Paraules</h2>
+                    <p class="home-card__text">Escriu tan rapid com puguis</p>
                     <span class="home-card__cta">Obre el joc</span>
                 </div>
             </a>
 
-            <a href="{{ url_for('joc2') }}" class="home-card">
+            <a href="{{ url_for('joc2') }}" class="home-card home-card--link">
                 <div class="home-card__content">
-                    <h2 class="home-card__title">Joc 2</h2>
-                    <p class="home-card__text">Acceso rapido al segundo juego del sistema.</p>
+                    <h2 class="home-card__title">Neon Drift</h2>
+                    <p class="home-card__text">Esquiva els obstales</p>
+                    <span class="home-card__cta">Obre el joc</span>
                 </div>
             </a>
 
-            <a href="{{ url_for('joc3') }}" class="home-card">
+            <a href="{{ url_for('joc3') }}" class="home-card home-card--link">
                 <div class="home-card__content">
-                    <h2 class="home-card__title">Joc 3</h2>
-                    <p class="home-card__text">Acceso rapido al tercer juego del sistema.</p>
+                    <h2 class="home-card__title">Sel·lecció en ordre</h2>
+                    <p class="home-card__text">Recorda l'ordre</p>
+                    <span class="home-card__cta">Obre el joc</span>
                 </div>
             </a>
         </section>
+
+        <div class="home-page__bottom-actions">
+            <a href="{{ url_for('rankings') }}" class="btn-ranking-bottom">Consultar Rànkings</a>
+        </div>
     </main>
 
 </body>
