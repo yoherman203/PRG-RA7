@@ -1,25 +1,25 @@
-const START_TIME_MS = 45000;
-const BONUS_TIME_MS = 2500;
-const PENALTY_TIME_MS = 2000;
-const LOW_TIME_MS = 5000;
-const FALLBACK_WORDS = [
-    "xarxa",
-    "modul",
-    "plasma",
-    "teclat",
-    "sintaxi",
-    "vector"
-];
+const GAME_CONFIG = {
+    startTimeMs: 45000,
+    bonusTimeMs: 2500,
+    penaltyTimeMs: 2000,
+    timerIntervalMs: 100
+};
+
+const MESSAGES = {
+    loading: "Carregant paraules...",
+    started: "Partida iniciada. Escriu la paraula actual.",
+    noWords: "No s'ha pogut carregar el fitxer de paraules.",
+    noErase: "No pots esborrar. Si t'equivoques, assumeix la penalitzacio."
+};
 
 const state = {
     mode: "loading",
-    timeLeftMs: START_TIME_MS,
+    timeLeftMs: GAME_CONFIG.startTimeMs,
     score: 0,
     mistakes: 0,
-    status: "Carregant paraules...",
     currentWord: "",
-    words: [],
-    wordIndex: 0
+    status: MESSAGES.loading,
+    words: []
 };
 
 const elements = {
@@ -29,141 +29,154 @@ const elements = {
     mistakes: document.getElementById("mistakes"),
     currentWord: document.getElementById("current-word"),
     status: document.getElementById("status-text"),
-    form: document.getElementById("word-form"),
     input: document.getElementById("word-input"),
     endActions: document.getElementById("end-actions"),
     restart: document.getElementById("restart-button")
 };
 
-let lastFrameTime = null;
+let timerId = 0;
+let lastTickMs = 0;
 
 function normalizeWord(word) {
     return word.trim().toLowerCase();
 }
 
-function shuffleWords(words) {
-    const shuffled = [...words];
-    for (let i = shuffled.length - 1; i > 0; i -= 1) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
+function setStatus(message) {
+    state.status = message;
 }
 
-function setNextWord() {
-    if (state.words.length === 0) {
-        state.currentWord = "error";
+function render() {
+    const playing = state.mode === "playing";
+
+    elements.timeLeft.textContent = (state.timeLeftMs / 1000).toFixed(1);
+    elements.score.textContent = String(state.score);
+    elements.mistakes.textContent = String(state.mistakes);
+    elements.currentWord.textContent = state.currentWord || "...";
+    elements.status.textContent = state.status;
+    elements.status.className = "joc1-status";
+    elements.playCard.classList.toggle("joc1-card--locked", !playing);
+    elements.input.disabled = !playing;
+    elements.input.placeholder = playing ? "Escriu aqui" : "Partida acabada";
+    elements.endActions.hidden = state.mode !== "lost";
+}
+
+function stopTimer() {
+    if (!timerId) {
         return;
     }
 
-    if (state.wordIndex >= state.words.length) {
-        state.words = shuffleWords(state.words);
-        state.wordIndex = 0;
-    }
+    window.clearInterval(timerId);
+    timerId = 0;
+}
 
-    state.currentWord = state.words[state.wordIndex];
-    state.wordIndex += 1;
+function showLoadError() {
+    stopTimer();
+    state.mode = "error";
+    state.timeLeftMs = 0;
+    state.currentWord = "---";
+    elements.input.value = "";
+    setStatus(MESSAGES.noWords);
+    render();
 }
 
 function loseGame() {
+    stopTimer();
     state.mode = "lost";
     state.timeLeftMs = 0;
-    state.status = `Temps esgotat. Has acabat amb ${state.score} punts i ${state.mistakes} errors.`;
+    setStatus(
+        `Temps esgotat. Has acabat amb ${state.score} punts i ${state.mistakes} errors.`
+    );
+    render();
 }
 
-function applyMistake(typedWord) {
-    state.mistakes += 1;
-    state.timeLeftMs = Math.max(0, state.timeLeftMs - PENALTY_TIME_MS);
-    state.status = `Error: "${typedWord}". Perds 2 segons i canvia la paraula.`;
-
-    if (state.timeLeftMs === 0) {
-        loseGame();
+function changeTime(deltaMs) {
+    if (state.mode !== "playing") {
         return;
     }
 
-    setNextWord();
-    elements.input.value = "";
+    state.timeLeftMs = Math.max(0, state.timeLeftMs + deltaMs);
+
+    if (state.timeLeftMs === 0) {
+        loseGame();
+    }
+}
+
+function startTimer() {
+    stopTimer();
+    lastTickMs = performance.now();
+
+    timerId = window.setInterval(() => {
+        const now = performance.now();
+        changeTime(-(now - lastTickMs));
+        lastTickMs = now;
+        render();
+    }, GAME_CONFIG.timerIntervalMs);
+}
+
+function pickNextWord() {
+    if (!state.words.length) {
+        state.currentWord = "";
+        return;
+    }
+
+    if (state.words.length === 1) {
+        state.currentWord = state.words[0];
+        return;
+    }
+
+    let nextWord = state.currentWord;
+
+    while (nextWord === state.currentWord) {
+        nextWord = state.words[Math.floor(Math.random() * state.words.length)];
+    }
+
+    state.currentWord = nextWord;
 }
 
 function resetGame() {
+    if (!state.words.length) {
+        showLoadError();
+        return;
+    }
+
     state.mode = "playing";
-    state.timeLeftMs = START_TIME_MS;
+    state.timeLeftMs = GAME_CONFIG.startTimeMs;
     state.score = 0;
     state.mistakes = 0;
-    state.status = "Partida iniciada. Escriu la paraula actual.";
-    state.wordIndex = 0;
-    state.words = shuffleWords(state.words.length ? state.words : FALLBACK_WORDS);
-    setNextWord();
+    state.currentWord = "";
     elements.input.value = "";
+    setStatus(MESSAGES.started);
+    pickNextWord();
     render();
     elements.input.focus();
+    startTimer();
 }
 
-function tick(deltaMs) {
-    if (state.mode !== "playing") {
-        return;
-    }
+function handleSuccess() {
+    const solvedWord = state.currentWord;
 
-    state.timeLeftMs = Math.max(0, state.timeLeftMs - deltaMs);
-    if (state.timeLeftMs === 0) {
-        loseGame();
-    }
-}
-
-function handleSubmit(event) {
-    event.preventDefault();
-
-    if (state.mode !== "playing") {
-        return;
-    }
-
-    const typedWord = normalizeWord(elements.input.value);
-    if (!typedWord) {
-        state.status = "Has d'escriure una paraula abans de validar.";
-        render();
-        return;
-    }
-
-    if (typedWord === state.currentWord) {
-        state.score += 1;
-        state.timeLeftMs += BONUS_TIME_MS;
-        state.status = `Correcte: "${state.currentWord}". Sumes 2.5 segons.`;
-    } else {
-        applyMistake(typedWord);
-    }
-
-    if (state.mode === "playing" && typedWord === state.currentWord) {
-        setNextWord();
-    }
-
+    state.score += 1;
     elements.input.value = "";
-    render();
+    setStatus(`Correcte: "${solvedWord}". Sumes 2.5 segons.`);
+    changeTime(GAME_CONFIG.bonusTimeMs);
+
     if (state.mode === "playing") {
+        pickNextWord();
+        render();
         elements.input.focus();
     }
 }
 
-async function loadWords() {
-    const url = document.body.dataset.wordsUrl;
+function handleMistake(typedWord) {
+    state.mistakes += 1;
+    elements.input.value = "";
+    setStatus(`Error: "${typedWord}". Perds 2 segons i canvia la paraula.`);
+    changeTime(-GAME_CONFIG.penaltyTimeMs);
 
-    try {
-        const response = await fetch(url, { cache: "no-store" });
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-
-        const text = await response.text();
-        const parsedWords = text
-            .split(/\r?\n/)
-            .map(normalizeWord)
-            .filter(Boolean);
-
-        state.words = parsedWords.length ? parsedWords : FALLBACK_WORDS;
-        resetGame();
-    } catch (error) {
-        state.words = FALLBACK_WORDS;
-        state.status = "No s'ha pogut llegir el fitxer de paraules. S'usa una llista de reserva.";
-        resetGame();
+    if (state.mode === "playing") {
+        pickNextWord();
+        render();
+        elements.input.focus();
     }
 }
 
@@ -173,28 +186,18 @@ function handleInput() {
     }
 
     const typedWord = normalizeWord(elements.input.value);
+
     if (!typedWord) {
         return;
     }
 
-    const expectedPrefix = state.currentWord.slice(0, typedWord.length);
-    if (typedWord !== expectedPrefix) {
-        applyMistake(typedWord);
-        render();
-        if (state.mode === "playing") {
-            elements.input.focus();
-        }
+    if (!state.currentWord.startsWith(typedWord)) {
+        handleMistake(typedWord);
         return;
     }
 
     if (typedWord === state.currentWord) {
-        state.score += 1;
-        state.timeLeftMs += BONUS_TIME_MS;
-        state.status = `Correcte: "${state.currentWord}". Sumes 2.5 segons.`;
-        setNextWord();
-        elements.input.value = "";
-        render();
-        elements.input.focus();
+        handleSuccess();
     }
 }
 
@@ -205,7 +208,7 @@ function handleKeyDown(event) {
 
     if (event.key === "Backspace" || event.key === "Delete") {
         event.preventDefault();
-        state.status = "No pots esborrar. Si t'equivoques, assumeix la penalitzacio.";
+        setStatus(MESSAGES.noErase);
         render();
         return;
     }
@@ -215,60 +218,33 @@ function handleKeyDown(event) {
     }
 }
 
-function render() {
-    elements.timeLeft.textContent = (state.timeLeftMs / 1000).toFixed(1);
-    elements.score.textContent = String(state.score);
-    elements.mistakes.textContent = String(state.mistakes);
-    elements.currentWord.textContent = state.currentWord || "...";
-    elements.status.textContent = state.status;
-    elements.status.className = "joc1-status";
+async function loadWords() {
+    try {
+        const response = await fetch(document.body.dataset.wordsUrl, { cache: "no-store" });
 
-    if (state.status.startsWith("Correcte")) {
-        elements.status.classList.add("joc1-status--success");
-    } else if (state.status.startsWith("Error") || state.mode === "lost") {
-        elements.status.classList.add("joc1-status--error");
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        state.words = (await response.text())
+            .split(/\r?\n/)
+            .map(normalizeWord)
+            .filter(Boolean);
+
+        if (!state.words.length) {
+            throw new Error("No hi ha paraules");
+        }
+
+        resetGame();
+    } catch (error) {
+        state.words = [];
+        showLoadError();
     }
-
-    elements.playCard.classList.toggle("joc1-card--locked", state.mode !== "playing");
-    elements.timeLeft.parentElement.classList.toggle("joc1-stat--danger", state.timeLeftMs <= LOW_TIME_MS && state.mode === "playing");
-    elements.input.disabled = state.mode !== "playing";
-    elements.input.placeholder = state.mode === "playing" ? "Escriu aqui" : "Partida acabada";
-    elements.endActions.hidden = state.mode !== "lost";
 }
 
-function frame(now) {
-    if (lastFrameTime === null) {
-        lastFrameTime = now;
-    }
-
-    const deltaMs = now - lastFrameTime;
-    lastFrameTime = now;
-    tick(deltaMs);
-    render();
-    window.requestAnimationFrame(frame);
-}
-
-window.advanceTime = (ms) => {
-    tick(ms);
-    render();
-    return state.timeLeftMs;
-};
-
-window.render_game_to_text = () => JSON.stringify({
-    mode: state.mode,
-    timeLeftSeconds: Number((state.timeLeftMs / 1000).toFixed(1)),
-    score: state.score,
-    mistakes: state.mistakes,
-    currentWord: state.currentWord,
-    status: state.status,
-    coordinateSystem: "DOM word game without spatial coordinates"
-});
-
-elements.form.addEventListener("submit", handleSubmit);
 elements.input.addEventListener("input", handleInput);
 elements.input.addEventListener("keydown", handleKeyDown);
 elements.restart.addEventListener("click", resetGame);
 
 render();
-window.requestAnimationFrame(frame);
 loadWords();

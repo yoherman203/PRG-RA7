@@ -1,49 +1,40 @@
-cr7 > messi  
-messi > cr7  
-print("prg")  
-print("hola mundo")  
-ping google.com  
-ping 8.8.8.8  
-sudo rm -rf   
-sudo apt update  
-sudo apt upgrade  
-systemctl status  
-systemctl enable  
-systemctl start  
-docker-compose up -d  
-docker-compose down  
-git status  
-git pull origin main   
-git push origin main  
-etchepareborda  
+cr7 > messi
+messi > cr7
+print("prg")
+print("hola mundo")
+ping google.com
+ping 8.8.8.8
+sudo rm -rf
+sudo apt update
+sudo apt upgrade
+systemctl status
+systemctl enable
+systemctl start
+docker-compose up -d
+docker-compose down
+git status
+git pull origin main
+git push origin main
+etchepareborda
 ai
-delete  
-nyap  
-bleda  
-nyanyo  
-capgròs  
-peus de plom  
-abraça fanals
-ull de gallina  
-pallús de paper  
-cap de carbaça  
-espineta de peix  
-cuc de seda  
-bufa de vent  
-xiruques  
-fèstuc  
-pifi  
-trinxera  
-pallofa  
-xipolleig  
-baliga-balaga  
-picarol  
-xarrupa  
-mandra  
-borrufa  
-tifa  
-tabalot  
-xerinola  
-galindaines  
-capcirera  
-palanganeta  
+delete
+nyap
+bleda
+nyanyo
+capgros
+peus de plom
+abraca fanals
+ull de gallina
+pallus de paper
+cap de carbassa
+espineta de peix
+cuc de seda
+bufa de vent
+xiruques
+festuc
+pifi
+trinxera
+pallofa
+xipolleig
+baliga-balaga
+picarol

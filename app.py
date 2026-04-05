@@ -63,7 +63,7 @@ def logout():
 @app.route('/joc1')
 def joc1():
     if 'usuari_actiu' in session:
-        return render_template("joc1.html", username=session['usuari_actiu'])
+        return render_template("joc1.html", usuari=session['usuari_actiu'])
     else:
         flash("Protocol de seguretat: Identifica't per jugar.", "error")
         return redirect(url_for('login'))
