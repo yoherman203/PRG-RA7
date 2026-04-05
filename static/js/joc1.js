@@ -167,16 +167,29 @@ function handleSuccess() {
     }
 }
 
-function handleMistake(typedWord) {
-    state.mistakes += 1;
-    elements.input.value = "";
-    setStatus(`Error: "${typedWord}". Perds 2 segons i canvia la paraula.`);
-    changeTime(-GAME_CONFIG.penaltyTimeMs);
+async function loadWords() {
+    const url = typeof window.JOC1_WORDS_URL !== 'undefined'
+        ? window.JOC1_WORDS_URL
+        : document.body.dataset.wordsUrl;
 
-    if (state.mode === "playing") {
-        pickNextWord();
-        render();
-        elements.input.focus();
+    try {
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const text = await response.text();
+        const parsedWords = text
+            .split(/\r?\n/)
+            .map(normalizeWord)
+            .filter(Boolean);
+
+        state.words = parsedWords.length ? parsedWords : FALLBACK_WORDS;
+        resetGame();
+    } catch (error) {
+        state.words = FALLBACK_WORDS;
+        state.status = "No s'ha pogut llegir el fitxer de paraules. S'usa una llista de reserva.";
+        resetGame();
     }
 }
 

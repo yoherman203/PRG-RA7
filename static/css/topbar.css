@@ -1,0 +1,128 @@
+/* Topbar universal: mateix estil que home, sticky a les pàgines de jocs */
+:root {
+    --color-fons: #030a1c;
+    --color-primari: #00f2fe;
+    --color-text: #ffffff;
+    --font-futurista: 'Orbitron', sans-serif;
+    --transicio: all 0.3s ease;
+}
+
+/* CSS DEL BOTÓN PARA VOLVER A HOME */
+.app-topbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: rgba(3, 10, 28, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.app-topbar__back {
+    font-family: var(--font-futurista);
+    font-size: 0.9rem;
+    color: var(--color-primari);
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 242, 254, 0.35);
+    background: transparent;
+    transition: var(--transicio);
+}
+
+.app-topbar__back:hover {
+    background: var(--color-primari);
+    color: #030a1c;
+}
+
+
+/* CSS DEL RECUADRO DE SESIÓN */
+.app-topbar__session {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
+}
+
+.app-topbar__user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.app-topbar__user-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.app-topbar__user-name {
+    font-family: var(--font-futurista);
+    color: var(--color-primari);
+    font-size: 1rem;
+}
+
+.app-topbar__logout {
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 242, 254, 0.35);
+    background: transparent;
+    color: var(--color-primari);
+    font-family: var(--font-futurista);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transicio);
+}
+
+.app-topbar__logout:hover {
+    background: var(--color-primari);
+    color: #030a1c;
+}
+
+/* Espai per al contingut: evita que quedi amagat sota el topbar */
+body.has-app-topbar {
+    padding-top: 0;
+}
+
+.app-topbar + .page-content,
+.app-topbar + main {
+    padding-top: 8px;
+}
+
+@media (max-width: 640px) {
+    .app-topbar {
+        padding: 12px 16px;
+    }
+
+    .app-topbar__session {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .app-topbar__user-info {
+        align-items: center;
+    }
+
+    .app-topbar__logout {
+        width: 100%;
+    }
+}
