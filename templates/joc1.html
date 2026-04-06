@@ -48,13 +48,10 @@
                     spellcheck="false"
                     maxlength="32"
                 >
-            </form>
-
-            <p id="status-text" class="joc1-status">Carregant paraules...</p>
+            <!-- Eliminated status-text for maximum script simplification -->
 
             <div id="end-actions" class="joc1-end-actions" hidden="hidden">
                 <button id="restart-button" class="joc1-end-action" type="button">Tornar a jugar</button>
-                <a href="{{ url_for('home') }}" class="joc1-end-action">Tornar al menu</a>
             </div>
         </section>
     </div>
