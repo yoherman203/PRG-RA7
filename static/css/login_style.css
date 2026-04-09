@@ -296,10 +296,185 @@ body {
     text-shadow: 0 0 5px var(--color-primari);
 }
 
+/* Registre: targeta amb alçada fixa (com el login) i scroll intern; els termes tenen scroll propi dins el seu caixó */
+html.html-registre {
+    height: 100%;
+    overflow: hidden;
+}
+
+body.pagina-registre {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+body.pagina-registre .seccio-login {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 0;
+    flex: 0 1 auto;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+}
+
+body.pagina-registre .targeta-login--registre {
+    width: 100%;
+    max-width: 440px;
+    max-height: min(640px, calc(100vh - 32px));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 28px 32px;
+}
+
+/* Scroll funcional sense mostrar la barra (registre + termes) */
+body.pagina-registre .targeta-login--registre .contingut-targeta {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+body.pagina-registre .targeta-login--registre .contingut-targeta::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.grup-textarea {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.grup-textarea__label {
+    font-size: 0.8rem;
+    font-family: var(--font-futurista);
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 1px;
+}
+
+.grup-textarea__camp {
+    width: 100%;
+    min-height: 96px;
+    max-height: 140px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: var(--color-text);
+    font-family: var(--font-estandard);
+    font-size: 0.95rem;
+    line-height: 1.45;
+    resize: vertical;
+    outline: none;
+    transition: var(--transicio);
+}
+
+.grup-textarea__camp::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.grup-textarea__camp:focus {
+    border-color: rgba(0, 242, 254, 0.45);
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.15);
+}
+
+.registre-termes {
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.registre-termes__summary {
+    padding: 12px 14px;
+    cursor: pointer;
+    font-family: var(--font-futurista);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--color-secundari);
+    list-style: none;
+}
+
+.registre-termes__summary::-webkit-details-marker {
+    display: none;
+}
+
+.registre-termes__summary::before {
+    content: '▸ ';
+    color: var(--color-primari);
+}
+
+.registre-termes[open] .registre-termes__summary::before {
+    content: '▾ ';
+}
+
+.registre-termes__contingut {
+    padding: 0 14px 14px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.78);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    max-height: 200px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.registre-termes__contingut::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.registre-termes__contingut p + p {
+    margin-top: 10px;
+}
+
+.registre-check-termes {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+}
+
+.registre-check-termes input {
+    margin-top: 3px;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primari);
+    cursor: pointer;
+}
+
 @media (max-width: 480px) {
     .targeta-login {
         width: 100%;
         padding: 30px 20px;
+    }
+
+    body.pagina-registre .targeta-login--registre {
+        padding: 22px 18px;
+        max-height: calc(100vh - 24px);
     }
     
     .titol-futurista {

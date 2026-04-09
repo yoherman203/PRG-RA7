@@ -19,6 +19,9 @@
             <div class="home-page__user-info">
                 <span class="home-page__user-label">Usuari connectat</span>
                 <strong class="home-page__user-name">{{ usuari }}</strong>
+                {% if termes_acceptats %}
+                <span class="home-page__termes-ok" title="Termes acceptats en el registre">Termes acceptats</span>
+                {% endif %}
             </div>
 
             <form action="{{ url_for('logout') }}" method="POST" class="home-page__logout-form">
@@ -32,6 +35,13 @@
             <h1 class="home-page__title">IC Games</h1>
             <p class="home-page__subtitle">Selecciona un mòdul des del panell principal</p>
         </header>
+
+        {% if anotacions_usuari %}
+        <section class="home-page__anotacions" aria-labelledby="anotacions-titol">
+            <h2 id="anotacions-titol" class="home-page__anotacions-title">Les teves anotacions</h2>
+            <p class="home-page__anotacions-text">{{ anotacions_usuari }}</p>
+        </section>
+        {% endif %}
 
         <section class="home-grid">
             <a class="home-card home-card--link" href="{{ url_for('joc1') }}">
