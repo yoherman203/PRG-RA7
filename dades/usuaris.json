@@ -1,5 +1,10 @@
 {
     "arnau": "1234",
     "amin": "1234",
-    "herman": "0476"
+    "herman": "0476",
+    "AminPrueba": {
+        "password": "1234",
+        "anotacions": "El rey del mando de la pley",
+        "vist": true
+    }
 }

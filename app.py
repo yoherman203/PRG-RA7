@@ -38,8 +38,11 @@ def registre():
     if request.method == 'POST':
         nom = request.form.get('username')
         clau = request.form.get('password')
+        # Llegim els nous camps del formulari
+        anotacions = request.form.get('anotacions', '')
+        vist = request.form.get('vist') == 'on'
 
-        nou_usuari = Usuari(nom, clau)
+        nou_usuari = Usuari(nom, clau, anotacions, vist)
 
         if nou_usuari.guardar_en_json():
             flash("Registrat amb èxit, ja pots iniciar el protocol.", "success")
@@ -54,7 +57,12 @@ def registre():
 def home():
     if 'usuari_actiu' in session:
         nom_usuari = session['usuari_actiu']
-        return render_template("home.html", usuari=nom_usuari)
+        # Llegim les dades guardades per mostrarles en pantalla
+        usuari_actual = Usuari.carregar_des_de_json(nom_usuari)
+        return render_template("home.html",
+                               usuari=nom_usuari,
+                               anotacions=usuari_actual.get_anotacions() if usuari_actual else "",
+                               vist=usuari_actual.get_vist() if usuari_actual else False)
     else:
         flash("Protocol de seguretat: Has d'iniciar sessió primer.", "error")
         return redirect(url_for('login'))

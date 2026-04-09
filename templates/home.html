@@ -33,6 +33,15 @@
             <p class="home-page__subtitle">Selecciona un mòdul des del panell principal</p>
         </header>
 
+        <!-- Aqui es mostren les noves dades guardades de l'usuari -->
+        <section class="home-card">
+            <div class="home-card__content">
+                <h2 class="home-card__title">Dades de usuari</h2>
+                <p class="home-card__text"><strong>Anotacions: </strong> {{ anotacions if anotacions else 'Sense anotacions' }}</p>
+                <p class="home-card__text"><strong>Vist: </strong> {{ 'Si' if vist else 'No' }}</p>
+            </div>
+        </section>
+
         <section class="home-grid">
             <a class="home-card home-card--link" href="{{ url_for('joc1') }}">
                 <div class="home-card__content">
