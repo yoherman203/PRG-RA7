@@ -7,7 +7,6 @@ from typing_extensions import Annotated
 
 PyObjectId = Annotated[str, BeforeValidator(str)]
 
-
 class PartidaModel(BaseModel):
     """
     Model que representa una partida
@@ -29,7 +28,7 @@ class PartidaModel(BaseModel):
                 "username": "Derek",
                 "joc_nom": "Selecció en orde",
                 "puntuacio": 80,
-                "data_hora": datetime.now().strftime("%Y-%m-%d %H:%M"),
+                "data_hora": datetime.now(),
             }
         },
     )

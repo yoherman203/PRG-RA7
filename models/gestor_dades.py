@@ -1,18 +1,15 @@
 ﻿import csv
 import os
 from models.entities import Resultat
+from models.models import PartidaModel
+from models.mongo import joc_dades_db
 
 class GestorDades:
     def __init__(self):
-        # Ruta de resultados
-        self.ruta_resultats = 'dades/resultats.csv'
+        self.partides_collection = joc_dades_db.get_collection("partides")
 
-    # --- Gestion de Resultados ---
-    def guardar_resultat(self, resultat_obj):
-        """Recibe un objeto Resultat y lo añade al historico"""
-        with open(self.ruta_resultats, mode='a', newline='', encoding='utf-8') as f:
-            writer = csv.writer(f)
-            writer.writerow(resultat_obj.to_csv_row())
+    def guardar_partida(self, partida_obj):
+        self.partides_collection.insert_one(partida_obj.model_dump())
 
     def carregar_resultats(self):
         """Devuelve una lista de objetos Resultat"""
