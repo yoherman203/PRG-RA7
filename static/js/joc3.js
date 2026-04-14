@@ -57,6 +57,7 @@ function finalitzarPartida() {
 			joc: "Selecció en orde",
 			puntuacio: score,
 			data: new Date().toISOString(),
+			errors: 0,
 		}),
 	}).then(() => {
 		window.location.href = "/home";

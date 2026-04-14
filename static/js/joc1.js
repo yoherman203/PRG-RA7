@@ -69,6 +69,7 @@ function loseGame() {
 			joc: "Flux de Paraules",
 			puntuacio: state.score,
 			data: new Date().toISOString(),
+			errors: state.mistakes,
 		}),
 	});
 }

@@ -111,11 +111,13 @@ def finalitzar_joc():
     puntuacio = int(dades.get("puntuacio", 0))
     joc_nom = dades.get("joc", "Joc")
     data = dades.get("data")
+    errors = dades.get("errors", 0)
     resultat = {
         "username": username,
         "joc_nom": joc_nom,
         "puntuacio": puntuacio,
         "data_hora": data,
+        "errors": errors,
     }
     gestor.guardar_partida(resultat)
     print(f"Partida finalitzada per {username}: {puntuacio} punts. Guardar a MongoDB")

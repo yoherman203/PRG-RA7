@@ -149,6 +149,7 @@ function finalitzarJoc() {
 			joc: "Neon Drift",
 			puntuacio: puntuacio,
 			data: new Date().toISOString(),
+			errors: 0,
 		}),
 	})
 		.then((response) => {
