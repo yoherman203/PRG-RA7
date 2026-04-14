@@ -7,6 +7,7 @@ from typing_extensions import Annotated
 
 PyObjectId = Annotated[str, BeforeValidator(str)]
 
+
 class PartidaModel(BaseModel):
     """
     Model que representa una partida
